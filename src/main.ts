@@ -21,6 +21,7 @@ async function bootstrap() {
       transport: Transport.REDIS,
       options: {
         url: process.env.REDIS_URL,
+        host: process.env.REDIS_URL,
       },
     });
 

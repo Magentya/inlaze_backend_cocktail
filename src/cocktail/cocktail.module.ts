@@ -14,6 +14,9 @@ import { Cocktail } from 'src/database/models/cokctail';
       {
         name: 'MICROSERVICE_TRANSFER',
         transport: Transport.REDIS,
+        options: {
+          host: process.env.REDIS_URL,
+        },
       },
     ]),
   ],
