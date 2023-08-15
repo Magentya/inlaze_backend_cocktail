@@ -29,7 +29,7 @@ export class CocktailController {
   constructor(private cocktailService: CocktailService) {}
 
   @Post('/')
-  //@UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.CREATED)
   @UsePipes(new JoiValidationPipe(createCocktailSchema))
   async create(@Body() data: CreateCocktailDto): Promise<GeneralResponse> {
@@ -47,6 +47,7 @@ export class CocktailController {
   }
 
   @Get('/:id?')
+  @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
   async read(@Param('id') id: number): Promise<GeneralResponse> {
     const [err, response] = await to(this.cocktailService.read(id));
@@ -63,6 +64,7 @@ export class CocktailController {
   }
 
   @Delete('/:id')
+  @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
   async delete(@Param('id') id: number): Promise<GeneralResponse> {
     const [err, response] = await to(this.cocktailService.delete(id));
@@ -79,6 +81,7 @@ export class CocktailController {
   }
 
   @Put('/:id')
+  @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
   @UsePipes(new JoiValidationPipe(updateCocktailSchema))
   async update(

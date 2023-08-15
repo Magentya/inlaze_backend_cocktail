@@ -22,12 +22,14 @@ import {
 } from './ingredient.dto.and.joi';
 import { GeneralResponse } from 'src/types';
 import to from 'await-to-js';
+import { AuthGuard } from 'src/auth/jwt.guard.external';
 
 @Controller('ingredient')
 export class IngredientController {
   constructor(private readonly ingredientService: IngredientService) {}
 
   @Post()
+  @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.CREATED)
   @UsePipes(new JoiValidationPipe(CreateIngredientSchema))
   async create(@Body() data: CreateIngredientDto): Promise<GeneralResponse> {
@@ -45,6 +47,7 @@ export class IngredientController {
   }
 
   @Get('/:id?')
+  @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
   async read(@Param('id') id?: number): Promise<GeneralResponse> {
     const [err, response] = await to(this.ingredientService.read(id));
@@ -61,6 +64,7 @@ export class IngredientController {
   }
 
   @Delete('/:id')
+  @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
   async delete(@Param('id') id: number): Promise<GeneralResponse> {
     const [err, response] = await to(this.ingredientService.delete(id));
@@ -77,6 +81,7 @@ export class IngredientController {
   }
 
   @Put('/:id')
+  @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
   @UsePipes(new JoiValidationPipe(UpdateIngredientSchema))
   async update(

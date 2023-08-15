@@ -45,9 +45,6 @@ export class IngredientService {
   ): Promise<UpdateResult> {
     return await this.ingredientRepository.update(id, {
       name: ingredient.name,
-      cocktail: {
-        id: ingredient.cocktailId,
-      },
     });
   }
 }

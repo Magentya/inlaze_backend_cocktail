@@ -12,10 +12,8 @@ export const CreateIngredientSchema = Joi.object({
 
 export class UpdateIngredientDto {
   name?: string;
-  cocktailId?: number;
 }
 
 export const UpdateIngredientSchema = Joi.object({
   name: Joi.string().optional(),
-  cocktailId: Joi.number().optional(),
 });
